@@ -1,0 +1,7 @@
+{
+  "scripts": {
+    "build:cssx": "node tools/cssx-compiler.js 'src/styles/**/*.cssx' --functions src/functions.js",
+    "dev": "npm run build:cssx && vite", 
+    "build": "npm run build:cssx && vite build"
+  }
+}

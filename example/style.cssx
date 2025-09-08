@@ -1,0 +1,6 @@
+.button {
+  background: ${ loggedIn ? love() : hate() };
+  font-size: ${ bigText ? 20 : 14 }px;
+  border-radius: ${ rand(5, 20) }px;
+  color: white;
+}

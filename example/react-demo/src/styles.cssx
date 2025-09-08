@@ -1,0 +1,40 @@
+.app {
+  background: ${ theme("#111", "#fafafa") };
+  color: ${ theme("white", "black") };
+  min-height: 100vh;
+  padding: ${ rem(2) };
+  transition: all 0.3s ease;
+}
+
+.counter-box {
+  background: ${ lighten("#3498db", 20) };
+  border: ${ px(3) } solid ${ darken("#3498db", 20) };
+  border-radius: ${ px(12) };
+  padding: ${ rem(1.5) };
+  margin: auto;
+  text-align: center;
+
+  /* 👇 live state-driven width & font-size */
+  width: ${ state.count * 10 }px;
+  font-size: ${ clamp(14, state.count, 40) }px;
+}
+
+
+/* Random border only once */
+.card {
+  background: ${ lighten("#3498db", 20) };
+  border: ${ once(() => rand(2, 8)) }px solid ${ darken("#3498db", 20) };
+  padding: ${ rem(1.5) };
+  border-radius: ${ px(12) };
+  font-size: ${ clamp(14, 18, 24) }px;
+  width: ${ percent(1, 2) };
+  margin: auto;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .card {
+    width: ${ percent(1, 1) };
+    font-size: ${ rem(1) };
+  }
+}

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CSSX Modular Demo</title>
+    <script type="module">
+        import { cssx } from "./runtime/cssx-runtime.js";
+        import { cssxFunctions } from "./user/functions.js";
+
+        // Register user functions
+        cssx.registerFunctions(cssxFunctions);
+
+        // Load multiple CSSX files
+        await cssx.loadFile("./styles/style.cssx");
+        await cssx.loadFile("./styles/page.cssx");
+
+        // Initial state
+        cssx.setState({ loggedIn: true, bigText: false, theme: "light" });
+
+        // Update after 3s
+        setTimeout(() => {
+            cssx.setState({ loggedIn: false, bigText: true, theme: "dark" });
+        }, 3000);
+    </script>
+</head>
+
+<body>
+    <button class="button">Click Me</button>
+</body>
+
+</html>
