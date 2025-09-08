@@ -1,22 +1,71 @@
-# ⚡ CSSX
-**CSS + JS = CSSX**  
-Dynamic, reactive, framework-agnostic styling.
+# ⚡ CSSX (Prototype)
+
+🚨 This is **not production-ready** — it’s a vision + experimental starting point for a new way of styling.
 
 ---
 
 ## ✨ What is CSSX?
-CSSX is a new design philosophy:  
-- Write `.cssx` files like normal CSS...  
-- But inject **JavaScript expressions** directly inside:  
-  ```css
-  .box {
-    background: ${ theme("black", "white") };
-    width: ${ state.count * 10 }px;
-    border: ${ once(() => rand(2, 8)) }px solid ${ darken("blue", 20) };
-  }
+CSSX is a wild idea:  
+- Write `.cssx` files like normal CSS  
+- But sprinkle in **JavaScript expressions + helpers**  
+- Let the runtime handle reactivity, state, and hot reload  
+
+---
+
+## 🧪 Example
+
+```css
+/* styles.cssx */
+.card {
+  background: ${ theme("#111", "#fff") };
+  font-size: ${ clamp(14, state.count, 40) }px;
+  border: ${ once(() => rand(1, 5)) }px solid blue;
+}
+
+## Import and use**
+
+import { cssx } from "cssx-runtime";
+
+cssx.loadFile("/styles.cssx");
+cssx.setState({ theme: "dark", count: 10 });
+
+****
+
 CSSX then compiles + runs them at runtime with state, functions, and built-in helpers.
 
 Think CSS + Reactivity + Stdlib → but without needing Tailwind, Sass, or Styled Components.
+
+🛠️ What’s Inside
+
+cssx-runtime → the engine that loads .cssx, tracks state, applies to <style>
+
+cssx-compile-core → compiles .cssx → .css + .cssx.map.json
+
+helpers → px(), rem(), theme(), once(), rand(), etc.
+
+🚀 Why?
+
+Because plain CSS feels static.
+CSSX makes styles alive: driven by logic, state, and reactivity — but without frameworks.
+
+⚠️ Disclaimer
+
+This repo is early, untested, and experimental.
+It’s here so that anyone interested can read through the files, fork, and push the idea forward.
+
+📚 Inspiration
+
+Sass/LESS → preprocessing
+
+Styled Components → JS in CSS
+
+Tailwind → utility-driven styles
+
+But CSSX? → stateful, dynamic, reactive CSS
+
+🤝 Contribute
+
+If this excites you, fork it, play with it, and share ideas. Let’s invent something new.
 
 🚀 Features
 ✅ Reactive CSS driven by state (cssx.setState({ ... }))
@@ -31,62 +80,7 @@ Think CSS + Reactivity + Stdlib → but without needing Tailwind, Sass, or Style
 
 ✅ No boilerplate — zero config, just import runtime.
 
-📦 Install
-bash
-Copy code
-npm install cssx
-🔧 Usage
-1. Create a .cssx file
-css
-Copy code
-/* styles.cssx */
-.card {
-  background: ${ theme("#111", "#fff") };
-  font-size: ${ clamp(14, state.count, 40) }px;
-  border: ${ once(() => rand(1, 5)) }px solid blue;
-}
-2. Load it in your app
-js
-Copy code
-import { cssx } from "cssx-runtime";
 
-cssx.loadFile("/styles.cssx");
-cssx.setState({ theme: "dark", count: 10 });
-3. Use classes as usual
-html
-Copy code
-<div class="card">Hello CSSX!</div>
-🧪 React Demo
-jsx
-Copy code
-import React, { useEffect, useState } from "react";
-import { cssx } from "cssx-runtime";
-
-export default function App() {
-  const [count, setCount] = useState(10);
-  const [theme, setTheme] = useState("light");
-
-  useEffect(() => {
-    cssx.loadFile("/styles.cssx");
-  }, []);
-
-  useEffect(() => {
-    cssx.setState({ count, theme });
-  }, [count, theme]);
-
-  return (
-    <div className="app">
-      <div className="counter-box">
-        Count: {count}
-        <button onClick={() => setCount(count + 1)}>+</button>
-        <button onClick={() => setCount(count - 1)}>-</button>
-      </div>
-      <button onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
-        Toggle Theme
-      </button>
-    </div>
-  );
-}
 📚 Built-in Helpers
 Values → px(), rem(), em(), percent()
 
